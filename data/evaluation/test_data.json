@@ -1,0 +1,30 @@
+[
+    {
+        "question": "How do I solve quadratic equations?",
+        "expected_answer": "To solve a quadratic equation ax² + bx + c = 0, you can use the quadratic formula: x = (-b ± √(b² - 4ac)) / (2a). First, identify the values of a, b, and c. Then, substitute them into the formula. Finally, simplify to find the solutions.",
+        "language": "en",
+        "difficulty": "medium",
+        "subject": "mathematics"
+    },
+    {
+        "question": "¿Cómo se resuelven las ecuaciones cuadráticas?",
+        "expected_answer": "Para resolver una ecuación cuadrática ax² + bx + c = 0, puedes usar la fórmula cuadrática: x = (-b ± √(b² - 4ac)) / (2a). Primero, identifica los valores de a, b y c. Luego, sustitúyelos en la fórmula. Finalmente, simplifica para encontrar las soluciones.",
+        "language": "es",
+        "difficulty": "medium",
+        "subject": "mathematics"
+    },
+    {
+        "question": "What is photosynthesis?",
+        "expected_answer": "Photosynthesis is the process by which plants convert light energy into chemical energy. It involves absorbing light, water, and carbon dioxide to produce glucose and oxygen. The process occurs in chloroplasts and is essential for plant growth and oxygen production.",
+        "language": "en",
+        "difficulty": "easy",
+        "subject": "biology"
+    },
+    {
+        "question": "Explain the concept of gravity.",
+        "expected_answer": "Gravity is a fundamental force that attracts objects toward each other. On Earth, it pulls everything toward the center of the planet. The strength of gravity depends on the mass of the objects and the distance between them. Newton's law of universal gravitation describes this relationship.",
+        "language": "en",
+        "difficulty": "hard",
+        "subject": "physics"
+    }
+] 
