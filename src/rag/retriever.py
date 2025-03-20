@@ -4,11 +4,11 @@ import faiss
 import numpy as np
 from transformers import AutoTokenizer, AutoModel
 import torch
-from langchain.document_loaders import DirectoryLoader, TextLoader
+from langchain_community.document_loaders import DirectoryLoader, TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings import HuggingFaceEmbeddings
-from langchain.vectorstores import FAISS
-from langchain.document_loaders import UnstructuredMarkdownLoader
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.vectorstores import FAISS
+from langchain_community.document_loaders import UnstructuredMarkdownLoader
 
 class CurriculumRetriever:
     def __init__(self, model_name="sentence-transformers/all-MiniLM-L6-v2"):

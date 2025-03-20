@@ -11,7 +11,7 @@ load_dotenv()
 class EducationalTutor:
     def __init__(
         self,
-        model_path: str,
+        model_name: str = "microsoft/phi-2",
         supported_languages: List[str] = ["en"],
         max_retries: int = 3
     ):
@@ -19,9 +19,9 @@ class EducationalTutor:
         self.max_retries = max_retries
         
         # Load model and tokenizer
-        self.tokenizer = AutoTokenizer.from_pretrained(model_path)
+        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
         self.model = AutoModelForCausalLM.from_pretrained(
-            model_path,
+            model_name,
             torch_dtype=torch.float16,
             device_map="auto"
         )
@@ -36,10 +36,11 @@ class EducationalTutor:
     
     def _format_prompt(self, question: str, context: Optional[str] = None) -> str:
         """Format the prompt with context and question"""
-        prompt = "<tutor>Let's solve this step by step.</tutor>\n"
+        # Format for Phi-2 model
+        prompt = "You are an educational tutor. Your role is to guide students through problems step by step, encouraging them to think independently.\n\n"
         if context:
-            prompt += f"<context>{context}</context>\n"
-        prompt += f"<question>{question}</question>\n"
+            prompt += f"Context: {context}\n\n"
+        prompt += f"Question: {question}\n\nAnswer:"
         return prompt
     
     def _generate_response(
@@ -60,7 +61,9 @@ class EducationalTutor:
         )
         
         response = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
-        return response.split("</question>")[-1].strip()
+        # Extract the response after "Answer:"
+        response = response.split("Answer:")[-1].strip()
+        return response
     
     def _get_relevant_context(self, question: str, language: str = "en") -> str:
         """Get relevant context from curriculum"""
@@ -126,7 +129,7 @@ class EducationalTutor:
 def main():
     # Example usage
     tutor = EducationalTutor(
-        model_path=os.getenv("MODEL_PATH", "models/educational_tutor"),
+        model_name="microsoft/phi-2",  # Use Microsoft's Phi-2 model
         supported_languages=["en", "es"]
     )
     
@@ -137,6 +140,7 @@ def main():
     response = tutor.tutor(question)
     
     # Save session
+    os.makedirs("sessions", exist_ok=True)  # Create sessions directory if it doesn't exist
     tutor.save_session(response, "sessions/example_session.json")
     
     print("Question:", response["question"])
