@@ -5,42 +5,59 @@ import json
 from ..rag.retriever import MultiLanguageRetriever
 import os
 from dotenv import load_dotenv
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 
 class EducationalTutor:
     def __init__(
         self,
-        model_name: str = "microsoft/phi-2",
+        model_name: str = "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
         supported_languages: List[str] = ["en"],
         max_retries: int = 3
     ):
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.device = torch.device("cpu")  # Force CPU usage
         self.max_retries = max_retries
         
-        # Load model and tokenizer
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        self.model = AutoModelForCausalLM.from_pretrained(
-            model_name,
-            torch_dtype=torch.float16,
-            device_map="auto"
-        )
+        try:
+            # Load model and tokenizer
+            logger.info(f"Loading model {model_name}...")
+            self.tokenizer = AutoTokenizer.from_pretrained(model_name)
+            self.model = AutoModelForCausalLM.from_pretrained(
+                model_name,
+                torch_dtype=torch.float32,  # Use float32 for CPU
+                device_map=None  # No device mapping for CPU
+            )
+            self.model.to(self.device)
+            logger.info("Model loaded successfully")
+        except Exception as e:
+            logger.error(f"Error loading model: {str(e)}")
+            raise
         
         # Initialize RAG
-        self.retriever = MultiLanguageRetriever(supported_languages)
-        
-        # Load curriculum data
-        curriculum_dir = os.getenv("CURRICULUM_DIR", "data/curriculum")
-        for lang in supported_languages:
-            self.retriever.load_curriculum(curriculum_dir, lang)
+        try:
+            self.retriever = MultiLanguageRetriever(supported_languages)
+            logger.info("RAG initialized successfully")
+            
+            # Load curriculum data
+            curriculum_dir = os.getenv("CURRICULUM_DIR", "data/curriculum")
+            for lang in supported_languages:
+                self.retriever.load_curriculum(curriculum_dir, lang)
+            logger.info("Curriculum data loaded successfully")
+        except Exception as e:
+            logger.error(f"Error initializing RAG: {str(e)}")
+            raise
     
     def _format_prompt(self, question: str, context: Optional[str] = None) -> str:
         """Format the prompt with context and question"""
-        # Format for Phi-2 model
-        prompt = "You are an educational tutor. Your role is to guide students through problems step by step, encouraging them to think independently.\n\n"
+        # Format for TinyLlama chat model
+        prompt = "<|system|>You are an educational tutor. Your role is to guide students through problems step by step, encouraging them to think independently.</s>\n"
         if context:
-            prompt += f"Context: {context}\n\n"
-        prompt += f"Question: {question}\n\nAnswer:"
+            prompt += f"<|context|>{context}</s>\n"
+        prompt += f"<|user|>{question}</s>\n<|assistant|>"
         return prompt
     
     def _generate_response(
@@ -61,8 +78,8 @@ class EducationalTutor:
         )
         
         response = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
-        # Extract the response after "Answer:"
-        response = response.split("Answer:")[-1].strip()
+        # Extract the response after the assistant token
+        response = response.split("<|assistant|>")[-1].strip()
         return response
     
     def _get_relevant_context(self, question: str, language: str = "en") -> str:
@@ -129,7 +146,7 @@ class EducationalTutor:
 def main():
     # Example usage
     tutor = EducationalTutor(
-        model_name="microsoft/phi-2",  # Use Microsoft's Phi-2 model
+        model_name="TinyLlama/TinyLlama-1.1B-Chat-v1.0",  # Use TinyLlama model
         supported_languages=["en", "es"]
     )
     

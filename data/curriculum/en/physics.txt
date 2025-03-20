@@ -1,0 +1,34 @@
+Physics Curriculum
+
+1. Mechanics
+   - Newton's Laws
+     * First Law: Inertia
+     * Second Law: F = ma
+     * Third Law: Action and Reaction
+   
+   - Energy
+     * Kinetic and Potential Energy
+     * Conservation of Energy
+     * Work and Power
+
+2. Waves and Optics
+   - Wave Properties
+     * Amplitude, frequency, and wavelength
+     * Wave speed and interference
+     * Sound waves
+   
+   - Light
+     * Reflection and refraction
+     * Lenses and mirrors
+     * Electromagnetic spectrum
+
+3. Electricity and Magnetism
+   - Electric Circuits
+     * Ohm's Law
+     * Series and parallel circuits
+     * Power in circuits
+   
+   - Magnetism
+     * Magnetic fields
+     * Electromagnetic induction
+     * Applications in technology 

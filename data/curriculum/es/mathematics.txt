@@ -1,0 +1,30 @@
+Currículo de Matemáticas
+
+1. Álgebra
+   - Ecuaciones Lineales
+     * Resolver ecuaciones lineales con una variable
+     * Graficar ecuaciones lineales
+     * Sistemas de ecuaciones lineales
+   
+   - Ecuaciones Cuadráticas
+     * Forma estándar: ax² + bx + c = 0
+     * Fórmula cuadrática: x = (-b ± √(b² - 4ac)) / (2a)
+     * Factorización de expresiones cuadráticas
+     * Graficar funciones cuadráticas
+
+2. Geometría
+   - Triángulos
+     * Tipos de triángulos
+     * Teorema de Pitágoras
+     * Área y perímetro
+   
+   - Círculos
+     * Radio, diámetro y circunferencia
+     * Área de círculos
+     * Longitud de arco y área de sector
+
+3. Estadística
+   - Análisis de Datos
+     * Media, mediana y moda
+     * Desviación estándar
+     * Conceptos básicos de probabilidad 

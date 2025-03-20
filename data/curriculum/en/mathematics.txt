@@ -1,0 +1,30 @@
+Mathematics Curriculum
+
+1. Algebra
+   - Linear Equations
+     * Solving linear equations with one variable
+     * Graphing linear equations
+     * Systems of linear equations
+   
+   - Quadratic Equations
+     * Standard form: ax² + bx + c = 0
+     * Quadratic formula: x = (-b ± √(b² - 4ac)) / (2a)
+     * Factoring quadratic expressions
+     * Graphing quadratic functions
+
+2. Geometry
+   - Triangles
+     * Types of triangles
+     * Pythagorean theorem
+     * Area and perimeter
+   
+   - Circles
+     * Radius, diameter, and circumference
+     * Area of circles
+     * Arc length and sector area
+
+3. Statistics
+   - Data Analysis
+     * Mean, median, and mode
+     * Standard deviation
+     * Probability basics 
